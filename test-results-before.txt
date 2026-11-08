@@ -1,0 +1,67 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- /Users/melissaforte/workspace/language-of-computation/week4-assignment/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/melissaforte/workspace/language-of-computation/week4-assignment
+collecting ... collected 21 items
+
+test_ingest.py::test_example_one_isbn[example_1] PASSED                  [  4%]
+test_ingest.py::test_example_one_isbn[example_2] PASSED                  [  9%]
+test_ingest.py::test_example_one_isbn[example_3] PASSED                  [ 14%]
+test_ingest.py::test_example_one_isbn[example_4] PASSED                  [ 19%]
+test_ingest.py::test_example_one_isbn[example_5] PASSED                  [ 23%]
+test_ingest.py::test_example_one_isbn[example_6] PASSED                  [ 28%]
+test_ingest.py::test_example_one_isbn[example_7] PASSED                  [ 33%]
+test_ingest.py::test_example_one_isbn[example_8] PASSED                  [ 38%]
+test_ingest.py::test_example_one_isbn[example_9] PASSED                  [ 42%]
+test_ingest.py::test_example_one_isbn[example_11] PASSED                 [ 47%]
+test_ingest.py::test_example_one_isbn[example_12] PASSED                 [ 52%]
+test_ingest.py::test_example_whole_row[example_10] PASSED                [ 57%]
+test_ingest.py::test_example_whole_row[example_14] PASSED                [ 61%]
+test_ingest.py::test_example_whole_row[example_15] PASSED                [ 66%]
+test_ingest.py::test_example_13_duplicate_isbn_on_another_book PASSED    [ 71%]
+test_ingest.py::test_same_file_twice_creates_no_duplicates PASSED        [ 76%]
+test_ingest.py::test_every_run_adds_a_log_entry_and_keeps_earlier_ones PASSED [ 80%]
+test_ingest.py::test_counts_add_up_to_rows_read PASSED                   [ 85%]
+test_ingest.py::test_same_file_on_empty_database_gives_same_database[books.csv] PASSED [ 90%]
+test_ingest.py::test_same_file_on_empty_database_gives_same_database[books-batch2.csv] PASSED [ 95%]
+test_ingest.py::test_still_to_fix_lists_every_book_still_needing_a_person FAILED [100%]
+
+=================================== FAILURES ===================================
+__________ test_still_to_fix_lists_every_book_still_needing_a_person ___________
+
+work = <test_ingest.Workspace object at 0x10b6ac190>
+
+    def test_still_to_fix_lists_every_book_still_needing_a_person(work):
+        """Section 15: every report has a "Still to fix" list of every book in the
+        database whose isbn has a problem or which has a Warning, whichever run
+        found it. Checked on the second run of books.csv, where nothing new is found.
+        """
+        work.run(BOOKS_CSV)
+        work.run(BOOKS_CSV)
+    
+        expected = {}
+        for book in work.books():
+            notes = notes_by_isbn(book["changes_repairs"])
+            isbn_problem = any(n.startswith("Wrong ISBN") or n == "Missing ISBN"
+                               for n in notes.get("isbn", []))
+            warning = any(n.startswith("Warning") for part in notes.values() for n in part)
+            if isbn_problem or warning:
+                expected[book["book_id"]] = book["changes_repairs"]
+    
+>       still_to_fix = work.log_entries()[-1]["still_to_fix"]
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'still_to_fix'
+
+test_ingest.py:379: KeyError
+----------------------------- Captured stdout call -----------------------------
+Ran 2026-11-08 14:26:42 on /Users/melissaforte/workspace/language-of-computation/week4-assignment/books.csv
+  read 10000, loaded 10000, updated 0, skipped 0, rejected 0
+  repairs 6587, rows needing a person 723, rows whose only problem is in isbn13 9277
+  details: test-ingestion-log.json (open it in report.html)
+Ran 2026-11-08 14:26:42 on /Users/melissaforte/workspace/language-of-computation/week4-assignment/books.csv
+  read 10000, loaded 0, updated 0, skipped 10000, rejected 0
+  repairs 0, rows needing a person 0, rows whose only problem is in isbn13 0
+  details: test-ingestion-log.json (open it in report.html)
+=========================== short test summary info ============================
+FAILED test_ingest.py::test_still_to_fix_lists_every_book_still_needing_a_person
+========================= 1 failed, 20 passed in 2.03s =========================

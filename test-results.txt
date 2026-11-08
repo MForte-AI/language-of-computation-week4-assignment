@@ -1,0 +1,29 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.7, pytest-9.2.0, pluggy-1.7.0 -- /Users/melissaforte/workspace/language-of-computation/week4-assignment/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/melissaforte/workspace/language-of-computation/week4-assignment
+collecting ... collected 21 items
+
+test_ingest.py::test_example_one_isbn[example_1] PASSED                  [  4%]
+test_ingest.py::test_example_one_isbn[example_2] PASSED                  [  9%]
+test_ingest.py::test_example_one_isbn[example_3] PASSED                  [ 14%]
+test_ingest.py::test_example_one_isbn[example_4] PASSED                  [ 19%]
+test_ingest.py::test_example_one_isbn[example_5] PASSED                  [ 23%]
+test_ingest.py::test_example_one_isbn[example_6] PASSED                  [ 28%]
+test_ingest.py::test_example_one_isbn[example_7] PASSED                  [ 33%]
+test_ingest.py::test_example_one_isbn[example_8] PASSED                  [ 38%]
+test_ingest.py::test_example_one_isbn[example_9] PASSED                  [ 42%]
+test_ingest.py::test_example_one_isbn[example_11] PASSED                 [ 47%]
+test_ingest.py::test_example_one_isbn[example_12] PASSED                 [ 52%]
+test_ingest.py::test_example_whole_row[example_10] PASSED                [ 57%]
+test_ingest.py::test_example_whole_row[example_14] PASSED                [ 61%]
+test_ingest.py::test_example_whole_row[example_15] PASSED                [ 66%]
+test_ingest.py::test_example_13_duplicate_isbn_on_another_book PASSED    [ 71%]
+test_ingest.py::test_same_file_twice_creates_no_duplicates PASSED        [ 76%]
+test_ingest.py::test_every_run_adds_a_log_entry_and_keeps_earlier_ones PASSED [ 80%]
+test_ingest.py::test_counts_add_up_to_rows_read PASSED                   [ 85%]
+test_ingest.py::test_same_file_on_empty_database_gives_same_database[books.csv] PASSED [ 90%]
+test_ingest.py::test_same_file_on_empty_database_gives_same_database[books-batch2.csv] PASSED [ 95%]
+test_ingest.py::test_still_to_fix_lists_every_book_still_needing_a_person PASSED [100%]
+
+============================== 21 passed in 2.14s ==============================
